@@ -1,0 +1,81 @@
+Problem we are solving: Creating a summary table of the shortest paths from a vertex that the user selects using Dijkstra's algorithm.
+
+The classes that we are using in this file are namespace std, iostream, graph.h, HashTable.h, fstream, vector, string, sstream, algorithm, iomanip, and climits. The inbuilt classes are namespace std, iostream, fstream, vector, string, sstream, algorithm, iomanip, and climits. The inbuilt classes are namespace std, iostream, fstream, vector, string, sstream, algorithm, iomanip, and climits are from the standard library.  Namespace std and iostream allows the user to use cin and cout. Fstream is used for files. Vector and string allow us to use vectors and strings in our program. Ssstream is used for delimiters in our program. Iomanip was used to have equal spacing in our program. Climits was used to use INT_MAX. The HashTable.h class allows us to use hashtables in our program, it is useful for us to see if a vertex was there or not in our graph already. The graph.h class was used to build the graph.
+
+
+The input file for our program will be a valid file that the user sends on the command line that contains the starting city and ending 
+city and the distance in between the two cities, and they will be seperated by semi-colons. Then, the program will receive user input after the graph is built for a valid vertex, so it can perform Dijkstra's algorithm.
+
+There were a total of 12 methods in the client program.
+
+In the main method, we declared a Graph object and a Queue object of size 50. We also declared a vector. Then, we called the first method that opens the file up if it is a valid file name and builds the graph. 
+
+The first method I created was to process the contents of the file if there was a valid file name and build the graph accordingly. This method had a total of five parameters which were the two command line arguments that store what is sent at the command line in array and the size of the array at the command line (argc and argv), a vector to store each of the vertices, a graph object, and a queue object. First, I declared an ifstream object and called the method that opens the file. Then, I declared a Hashtable that was a size of 50. Then, I declared three string objects to store the starting city, ending city, and the distance between them. I also declared two integers: one to store the number of vertices and the other to change the string of distance to an integer, so I could build my graph. I also declared an additional string to store each individual line when I am trying to parse it using delimiters. I parsed each line by using a stringstream. Then, I used a hashtable to see if the starting and ending vertex were already present, if it wasn't, I added the vertex to the graph, the HashTable, and the vector. I also incremented the number of vertices if we added a vertex that wasnt already added. Then, I ensured that the distance was an integer, and then I called the AddEdge graph method. After successfully creating the graph, I called the method that prints the menu.
+
+
+
+The second method opens up the file. This method has three parameters which are an ifstream object, an array that stores what is sent at the command line, and an integer that stores the size of the array at the command line. I first checked to make sure that a filename was sent at
+the command line based off if the integer equaled one. If it does equal one, then I send an error message. If there is a valid file name I get what is stored at the second position in the array, which is the file name and store it as a string and open it. If the file does not open for some reason because it is not in the current directory, it also throws an error message. The file at the command line should be the file you want to use to do Dijkstras algorithm on. 
+
+The third method prints the menu for Dijkstras algorithm. It has five parameters which are a vector of the vertices in the graph, the number of vertices, the HashTable of vertices, a Graph object, and a queue object. I declare a string to capture the input that user inputs for the vertex they want to start doing Dijkstras algorithm on. I also called the insertion sort method to sort to make sure the vertices print out in alphabetical order. I print out the menu accordingly and use the vector of vertices and the setw method from the iomanip class that is in-built to space everything out evenly. Then, I call the method that ensures that a valid vertex name was entered, and then I call the method that sets up Dijkstras algorithm.
+
+The fourth method is to do an insertion sort on the vector of vertices, so we can print them in alphabetical order in the menu. This method only has one parameter which is the vector of vertices. 
+
+The fifth method was accepting valid input from the user about the vertex they want to start at for Dijkstras algorithm. This method has two parameters which is a string that stores the input that the user inputs and the HashTable of vertices. It will take the input that the user enters, and see if it is in the HashTable if it is, then it will continue to give error messages until the user enters a vald vertex. Once a valid vertex is entered, then the program is ready to do Dijkstras algorithm.
+
+The sixth method is the initial set up for Dijkstras algorithm. This method has five parameters which are a vector of vertices, an integer that represents the number of vertices, a string that stores the input of a valid vertex, a Graph object, and a Queue object. The method first declared four parallel arrays sized the number of vertices, and they are initialized by calling the method that initializes them. Then, we find the index of where the starting vertex is in our parallel arrays using the method that finds the string in the array with the vertices. Then, it sets the index where the starting vertex as marked and sets its distance to 0. Then, it prints the row out by calling the print row method and calls the Dijkstras algorithm method after.
+
+The seventh method is the initialize arrays method which has five parameters which are the list of vertices in alphabetical order, and the four parallel arrays: one for the vertices names, one for marked vertices, one for distances, and the other for the previous vertex. I used a for loop to transfer the contents in the vector of vertices to the vertices array, and set all the vertices in the marked array to false, and the distances to INT_MAX is the array that stores the distances, and I set all the previous vertices to N/A in the array of previous vertices. 
+
+The eight method is the method that finds the string in the index of the vertices array, and it returns an integer. The parameters for this method were a string, an integer that represents the number of vertices, and the array with all the vertices. In the method, I declared an integer to store the index that the string is at. Then, I iterated through the array of vertices and compared the input to the element at the particular index to see if it matched. If it did match, then I change the index. Then, I returned the index of where the string was in the array.
+
+The ninth method is the method that prints the rows in the Dijkstras summary table. The method has four parameters, which are the index of the current vertex, and the parallel arrays with a list of vertices, distances, and previous vertices. If the distance was a negative number or equal to INT_MAX, this meant there was no path for that vertex, so it prints out there is no path instead of the distance. Otherwise, it prints everything out normally with the distance.
+
+The tenth method is the method the method performs Dijkstras algorithm. This method has eight parameters, which are a string that stores the input vertex, an integer that represents the number of vertices, the four parallel arrays, a Graph object, and a Queue object. Within the method, I declared a string that stores the current vertex and initialized it to the input vertex. Then, I declared two integers, where one stores the index of the current index of the adjacent vertex and the other stores the temporary distance between one vertex to another. Then, there will be a while loop that will run until all the vertices are marked by calling the method that checks to see if all the vertices are marked. Within the while loop, it will call the GetToVertices method and add the adjacent vertices to the queue. Then, it will process the queue until it is not empty. Then, the user will find the index of the current adjacent vertex and see if it is marked. If it is not marked, then it will calculate the distance between the current and the adjacent vertex. If the distance is less than zero or equal to INT_MAX, we exit the loop. If not, then we see if it is less than the distance that is stored for the adjacent vertex, if it is less then we change the distance and previous for the adjacent vertex to the distance calculated and the previous to the current vertex. Then, we do this for all the adjacent nodes in the queue until it is empty. Then we call the method that finds the minimum in the unmarked vertices, and we call the method that prints the row out for the current vertex.
+
+The eleventh method is the method that finds the minimum in the unmarked vertices. This method has five parameters which are the string that stores the current vertex, the integer that stores the number of vertices, and the parallel arrays for vertices, maked, and distance. We first add the vertices that are unmarked into a vector. Then, we declare two integers: one for the min index and the other for the minimum distance. Then, we iterate through the vector of unmarked vertices, and we see if the current distance is less than the min distance. If it is then, we change the min index and the min distance. Then, we set the vertex at the min index to the current vertex, and we mark this vertex in our marked array.
+
+The last method is the method that checks to see if all the vertices in the array are marked or not. It returns a bool, and it has two parameters which are the array with marked vertices and an integer that represents the total number of vertices. In this method, we iterate through the array and see if any of the vertices are marked false, if one of them is marked false, then we return false. Else, we return true indicating that all the vertices are marked.
+
+
+Outline of the graph class:
+Graph constructor with no parameters
+Graph constructor with an int max for the size of the Graph
+Graph destructor
+Boolean method to see if the Graph is Full
+Boolean method to see if the Graph is Empty
+Void method that clears the marks
+Void method that marks a vertex
+Boolean method that checks to see if a vertex is Marked
+Void method that adds the vertex passed in to the Graph
+Void Method that adds the edges to the Graph based on the starting and ending vertex  and weight of the vertex
+Void method that gets to adjacent vertices
+Integer method that returns the index of a vertex
+Integer method that returns the weight between two vertices
+
+The data structures used to build the graph are the queue and the HashTable. The queue class was imported in the graph class, and the HashTable was used in my client program to determine if a vertex was already present in the graph or not.
+
+Sample input: 
+
+Delhi;Bangalore;2147
+Mumbai;Delhi;1436
+Mumbai;Chennai;1336
+Bangalore;Chennai;347
+Bangalore;Kolkata;1875
+Kolkata;Delhi;1535
+
+Starting vertex: Bangalore
+
+
+Sample Output:
+		      Vertex                Distance                Previous
+
+                   Bangalore                       0                     N/A
+                     Chennai                     347               Bangalore
+                     Kolkata                    1875               Bangalore
+                       Delhi                    3410                 Kolkata
+                      Mumbai             Not On Path                     N/A
+
+
+
+We start with Bangalore, and we set its distance to zero, and we mark this vertex and set its previous to N/A, and print it out. We look for the adjacent vertices to Bangalore which are Kolkata and Chennai. We set Kolkata to 1875 for its distance and its previous to Bangalore, and we set Chennai to 347 and its previous to Bangalore. Now, we look for the smallest unmarked vertex which is Chennai since it has a distance of 347. We mark this vertex and print it out. Now, we look for the adjacent vertices to Chennai. Chennai has no adjacent vertices, so we look for the next smallest unmarked. The smallest unmarked now is Kolkata with a distance of 1875, so we mark it and then we print it out. Now, we look for the adjacent vertices to Kolkata which is Delhi. So, we set Delhi to a distance of 1875 + 1535 = 3410, and we set its previous to Kolkata. Now, we look for the smallest unmarked vertex which is Delhi, and we mark it and print it out. Now, we look at the adjacent vertices for Delhi. The adjacent vertex for Delhi is Bangalore. Since it is already marked, we do not do anything, since the distance for Bangalore is way smaller than the distance of going to Bangalore again from Delhi. We look for the smallest unmarked again, whic is Mumbai, and we mark it. Since, there was no path for Mumbai we print it out for not having a path, and its previous as N/A. 
